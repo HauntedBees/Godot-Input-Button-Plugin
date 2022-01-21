@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/input_button/InputDisplay.gd" type="Script" id=1]
+
+[node name="Button Remapping Example" type="Node2D"]
+
+[node name="ManualDirections" type="CheckBox" parent="."]
+margin_left = 398.0
+margin_top = 7.0
+margin_right = 647.0
+margin_bottom = 56.0
+text = "Specify Directions Individually"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GeneralDirection" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="GeneralDirection"]
+margin_left = 335.0
+margin_top = 133.0
+margin_right = 408.0
+margin_bottom = 147.0
+text = "Movement:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputDisplay" type="Node2D" parent="GeneralDirection"]
+position = Vector2( 472, 136 )
+script = ExtResource( 1 )
+key_code = 6

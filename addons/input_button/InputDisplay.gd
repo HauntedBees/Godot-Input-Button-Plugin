@@ -1,4 +1,5 @@
 tool
+class_name InputDisplay
 extends Node2D
 export(Color) var pressed_tint:Color = Color(0.2, 0.2, 0.2)
 export(SpriteFrames) var sheet:SpriteFrames = preload("res://addons/input_button/InputDisplaySpriteFrames.tres") setget set_sheet
@@ -8,11 +9,38 @@ export(String, "xb", "ps", "ds", "joycon") var gamepad_type := "xb" setget set_g
 export(int) var key_code := 65 setget set_key_code
 export(bool) var pressed := false setget set_pressed
 
-func _ready(): refresh_display()
+var button_icon:AnimatedSprite
+var button_text:Label
+var overlay_icon:AnimatedSprite
+
+func rendered() -> bool: return is_inside_tree()
+
+func _ready():
+	button_icon = AnimatedSprite.new()
+	button_icon.frames = sheet
+	button_icon.modulate = pressed_tint if pressed else Color.white
+	add_child(button_icon)
+	
+	button_text = Label.new()
+	button_text.align = Label.ALIGN_CENTER
+	button_text.valign = Label.VALIGN_CENTER
+	button_text.clip_text = true
+	button_text.rect_size = Vector2(48, 16)
+	button_text.rect_position = Vector2(-24, -8)
+	button_text.rect_pivot_offset = Vector2(24, 8)
+	button_text.add_font_override("font", font)
+	add_child(button_text)
+	
+	overlay_icon = AnimatedSprite.new()
+	overlay_icon.frames = overlay
+	add_child(overlay_icon)
+	
+	refresh_display()
 
 func set_pressed(p:bool):
 	pressed = p
-	$ButtonIcon.modulate = pressed_tint if p else Color.white
+	if !rendered(): return
+	button_icon.modulate = pressed_tint if pressed else Color.white
 
 func set_key_code(code:int):
 	key_code = code
@@ -24,21 +52,25 @@ func set_gamepad_type(type:String):
 
 func set_sheet(s:SpriteFrames):
 	sheet = s
-	$ButtonIcon.frames = sheet
+	if !is_inside_tree(): return
+	button_icon.frames = sheet
 	refresh_display()
 	
 func set_overlay_sheet(s:SpriteFrames):
 	overlay = s
-	$OverlayIcon.frames = overlay
+	if !rendered(): return
+	overlay_icon.frames = overlay
 	refresh_display()
 
 func set_font(f:DynamicFont):
 	font = f
-	$ButtonText.add_font_override("font", font)
+	if !rendered(): return
+	button_text.add_font_override("font", font)
 	refresh_display()
 
 func _between(x:int, a:int, b:int) -> bool: return x >= a && x <= b
 func refresh_display():
+	if !rendered(): return
 	if _between(key_code, JOY_BUTTON_0, JOY_BUTTON_22): set_gamepad(key_code)
 	elif key_code == KEY_SPACE: set_big_key("Space")
 	elif _between(key_code, KEY_EXCLAM, KEY_YDIAERESIS): set_key(char(key_code))
@@ -73,26 +105,26 @@ func refresh_display():
 	else: set_big_key("??")
 
 func set_key(t:String):
-	$ButtonText.text = t
-	$ButtonText.rect_scale = Vector2(1, 1)
-	$ButtonIcon.frame = 3
-	$ButtonIcon.rotation = 0
-	$OverlayIcon.visible = false
+	button_text.text = t
+	button_text.rect_scale = Vector2(1, 1)
+	button_icon.frame = 3
+	button_icon.rotation = 0
+	overlay_icon.visible = false
 
 func set_icon_key(icon_frame:int, rotation:float):
-	$ButtonText.text = ""
-	$ButtonIcon.frame = 3
-	$ButtonIcon.rotation = 0
-	$OverlayIcon.visible = true
-	$OverlayIcon.frame = icon_frame
-	$OverlayIcon.rotation_degrees = rotation
+	button_text.text = ""
+	button_icon.frame = 3
+	button_icon.rotation = 0
+	overlay_icon.visible = true
+	overlay_icon.frame = icon_frame
+	overlay_icon.rotation_degrees = rotation
 
 func set_big_key(t:String):
-	$ButtonText.text = t
-	$ButtonText.rect_scale = Vector2(0.75, 0.75)
-	$ButtonIcon.frame = 4
-	$ButtonIcon.rotation = 0
-	$OverlayIcon.visible = false
+	button_text.text = t
+	button_text.rect_scale = Vector2(0.75, 0.75)
+	button_icon.frame = 4
+	button_icon.rotation = 0
+	overlay_icon.visible = false
 
 func set_gamepad(i:int):
 	match(i):
@@ -137,14 +169,14 @@ func set_gamepad(i:int):
 		JOY_L3: set_game_button("L3", 9)
 		JOY_R: 
 			match gamepad_type:
-				"ps": set_game_button("R1", 1)
-				"joycon": set_game_button("RL", 1)
-				_: set_game_button("R", 1)
+				"ps": set_game_button("R1", 2)
+				"joycon": set_game_button("RL", 2)
+				_: set_game_button("R", 2)
 		JOY_R2: 
 			match gamepad_type:
-				"xb": set_game_button("RT", 1)
-				"ps": set_game_button("R2", 1)
-				"ds", "joycon": set_game_button("ZR", 1)
+				"xb": set_game_button("RT", 2)
+				"ps": set_game_button("R2", 2)
+				"ds", "joycon": set_game_button("ZR", 2)
 		JOY_R3: set_game_button("R3", 9)
 		JOY_START:
 			match gamepad_type:
@@ -158,20 +190,20 @@ func set_gamepad(i:int):
 				_: set_game_button("Back", 4)
 
 func set_game_button(t:String, frame := 0):
-	$ButtonText.text = t
-	$ButtonText.rect_scale = Vector2(1, 1)
-	$ButtonIcon.frame = frame
-	$ButtonIcon.rotation = 0
-	$OverlayIcon.visible = false
+	button_text.text = t
+	button_text.rect_scale = Vector2(1, 1)
+	button_icon.frame = frame
+	button_icon.rotation = 0
+	overlay_icon.visible = false
 func set_game_button_icon(icon_frame:int, rotation := 0.0):
-	$ButtonText.text = ""
-	$ButtonIcon.frame = 0
-	$ButtonIcon.rotation = 0
-	$OverlayIcon.visible = true
-	$OverlayIcon.frame = icon_frame
-	$OverlayIcon.rotation_degrees = rotation
+	button_text.text = ""
+	button_icon.frame = 0
+	button_icon.rotation = 0
+	overlay_icon.visible = true
+	overlay_icon.frame = icon_frame
+	overlay_icon.rotation_degrees = rotation
 func set_rotation_button(frame:int, rotation:float):
-	$ButtonText.text = ""
-	$ButtonIcon.frame = frame
-	$ButtonIcon.rotation_degrees = rotation
-	$OverlayIcon.visible = false
+	button_text.text = ""
+	button_icon.frame = frame
+	button_icon.rotation_degrees = rotation
+	overlay_icon.visible = false
