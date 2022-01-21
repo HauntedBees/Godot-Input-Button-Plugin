@@ -1,0 +1,144 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/input_button/InputDisplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/input_button/ActionDisplay.tscn" type="PackedScene" id=2]
+[ext_resource path="res://controller.png" type="Texture" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="InputDisplay" type="Node2D" parent="."]
+
+[node name="InputDisplay Label" type="Label" parent="InputDisplay"]
+margin_left = 74.0
+margin_top = 71.0
+margin_right = 296.0
+margin_bottom = 85.0
+text = "InputDisplay Hard-coded Bindings:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XBox A Button" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 343, 78 )
+font = null
+key_code = 0
+
+[node name="DualShock Square Button" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 413, 77 )
+font = null
+gamepad_type = "ps"
+key_code = 2
+
+[node name="JoyCon Y" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 480, 75 )
+font = null
+gamepad_type = "joycon"
+key_code = 2
+
+[node name="DPad Right" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 545, 75 )
+font = null
+gamepad_type = "joycon"
+key_code = 15
+
+[node name="A Key" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 615, 75 )
+font = null
+gamepad_type = "ps"
+
+[node name="Esc Key" parent="InputDisplay" instance=ExtResource( 1 )]
+position = Vector2( 693, 75 )
+font = null
+gamepad_type = "ps"
+key_code = 16777217
+
+[node name="ActionDisplay" type="Node2D" parent="."]
+
+[node name="ActionDisplay Label" type="Label" parent="ActionDisplay"]
+margin_left = 80.0
+margin_top = 163.0
+margin_right = 296.0
+margin_bottom = 228.0
+text = "ActionDisplay Dynamic Bindings
+(update Input Mappings and
+connect/disconnect controllers to
+see them update automatically):"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controller" type="Sprite" parent="ActionDisplay"]
+position = Vector2( 558, 349 )
+scale = Vector2( 1.94531, 1.94531 )
+texture = ExtResource( 3 )
+
+[node name="Face Buttons" type="Node2D" parent="ActionDisplay"]
+
+[node name="Gamepad A" parent="ActionDisplay/Face Buttons" instance=ExtResource( 2 )]
+position = Vector2( 690, 316 )
+
+[node name="Gamepad B" parent="ActionDisplay/Face Buttons" instance=ExtResource( 2 )]
+position = Vector2( 730, 277 )
+action = "ui_cancel"
+
+[node name="Gamepad X" parent="ActionDisplay/Face Buttons" instance=ExtResource( 2 )]
+position = Vector2( 640, 279 )
+action = "ui_x"
+
+[node name="Gamepad Y" parent="ActionDisplay/Face Buttons" instance=ExtResource( 2 )]
+position = Vector2( 685, 238 )
+action = "ui_select"
+
+[node name="DPad" type="Node2D" parent="ActionDisplay"]
+position = Vector2( -189, 90 )
+
+[node name="Gamepad A" parent="ActionDisplay/DPad" instance=ExtResource( 2 )]
+position = Vector2( 690, 316 )
+action = "ui_down"
+
+[node name="Gamepad B" parent="ActionDisplay/DPad" instance=ExtResource( 2 )]
+position = Vector2( 730, 277 )
+action = "ui_right"
+
+[node name="Gamepad X" parent="ActionDisplay/DPad" instance=ExtResource( 2 )]
+position = Vector2( 640, 279 )
+action = "ui_left"
+
+[node name="Gamepad Y" parent="ActionDisplay/DPad" instance=ExtResource( 2 )]
+position = Vector2( 685, 238 )
+action = "ui_up"
+
+[node name="Shoulder Buttons" type="Node2D" parent="ActionDisplay"]
+
+[node name="ActionDisplay" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 422, 222 )
+action = "lt1"
+
+[node name="ActionDisplay2" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 380, 177 )
+action = "lt2"
+
+[node name="ActionDisplay3" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 435, 283 )
+action = "lt3"
+
+[node name="ActionDisplay4" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 656, 198 )
+action = "rt1"
+
+[node name="ActionDisplay5" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 727, 175 )
+action = "rt2"
+
+[node name="ActionDisplay6" parent="ActionDisplay/Shoulder Buttons" instance=ExtResource( 2 )]
+position = Vector2( 633, 360 )
+action = "rt3"
+
+[node name="ActionDisplay" parent="ActionDisplay" instance=ExtResource( 2 )]
+position = Vector2( 582, 281 )
+action = "ui_home"
+
+[node name="ActionDisplay2" parent="ActionDisplay" instance=ExtResource( 2 )]
+position = Vector2( 519, 282 )
+action = "ui_end"
