@@ -8,6 +8,8 @@ export(DynamicFont) var font:DynamicFont = preload("res://addons/input_button/Bu
 export(String, "xb", "ps", "ds", "joycon") var gamepad_type := "xb" setget set_gamepad_type
 export(int) var key_code := 65 setget set_key_code
 export(bool) var pressed := false setget set_pressed
+export(bool) var compress_dpad_and_analog_sticks := false setget set_compress
+export(int) var axis := 0 setget set_axis # 0 = not an axis, 1 = positive, -1 = negative
 
 var button_icon:AnimatedSprite
 var button_text:Label
@@ -44,6 +46,14 @@ func set_pressed(p:bool):
 
 func set_key_code(code:int):
 	key_code = code
+	refresh_display()
+
+func set_axis(i:int):
+	axis = i
+	refresh_display()
+	
+func set_compress(b:bool):
+	compress_dpad_and_analog_sticks = b
 	refresh_display()
 
 func set_gamepad_type(type:String):
@@ -127,67 +137,94 @@ func set_big_key(t:String):
 	overlay_icon.visible = false
 
 func set_gamepad(i:int):
-	match(i):
-		JOY_XBOX_A: # JOY_DS_B, JOY_SONY_X
-			match gamepad_type:
-				"xb": set_game_button("A")
-				"ds": set_game_button("B")
-				"ps": set_game_button_icon(4)
-				"joycon": set_rotation_button(5, 180)
-		JOY_XBOX_B: # JOY_DS_A, JOY_SONY_CIRCLE
-			match gamepad_type:
-				"xb": set_game_button("B")
-				"ds": set_game_button("A")
-				"ps": set_game_button_icon(2)
-				"joycon": set_rotation_button(5, 90)
-		JOY_XBOX_X: # JOY_DS_Y, JOY_SONY_SQUARE
-			match gamepad_type:
-				"xb": set_game_button("X")
-				"ds": set_game_button("Y")
-				"ps": set_game_button_icon(1)
-				"joycon": set_rotation_button(5, -90)
-		JOY_XBOX_Y: # JOY_DS_X, JOY_SONY_TRIANGLE
-			match gamepad_type:
-				"xb": set_game_button("Y")
-				"ds": set_game_button("X")
-				"ps": set_game_button_icon(3)
-				"joycon": set_rotation_button(5, 0)
-		JOY_DPAD_UP: set_rotation_button(7, 0)
-		JOY_DPAD_RIGHT: set_rotation_button(7, 90)
-		JOY_DPAD_DOWN: set_rotation_button(7, 180)
-		JOY_DPAD_LEFT: set_rotation_button(7, -90)
-		JOY_L: 
-			match gamepad_type:
-				"ps": set_game_button("L1", 1)
-				"joycon": set_game_button("SL", 1)
-				_: set_game_button("L", 1)
-		JOY_L2:
-			match gamepad_type:
-				"xb": set_game_button("LT", 1)
-				"ps": set_game_button("L2", 1)
-				"ds", "joycon": set_game_button("ZL", 1)
-		JOY_L3: set_game_button("L3", 9)
-		JOY_R: 
-			match gamepad_type:
-				"ps": set_game_button("R1", 2)
-				"joycon": set_game_button("RL", 2)
-				_: set_game_button("R", 2)
-		JOY_R2: 
-			match gamepad_type:
-				"xb": set_game_button("RT", 2)
-				"ps": set_game_button("R2", 2)
-				"ds", "joycon": set_game_button("ZR", 2)
-		JOY_R3: set_game_button("R3", 9)
-		JOY_START:
-			match gamepad_type:
-				"ds", "joycon": set_game_button("+", 4)
-				"ps": set_game_button("Option", 4)
-				_: set_game_button("Start", 4)
-		JOY_SELECT: 
-			match gamepad_type:
-				"ds", "joycon": set_game_button("-", 4)
-				"ps": set_game_button("Share", 4)
-				_: set_game_button("Back", 4)
+	if axis == 0:
+		match(i):
+			JOY_XBOX_A: # JOY_DS_B, JOY_SONY_X
+				match gamepad_type:
+					"xb": set_game_button("A")
+					"ds": set_game_button("B")
+					"ps": set_game_button_icon(4)
+					"joycon": set_rotation_button(5, 180)
+			JOY_XBOX_B: # JOY_DS_A, JOY_SONY_CIRCLE
+				match gamepad_type:
+					"xb": set_game_button("B")
+					"ds": set_game_button("A")
+					"ps": set_game_button_icon(2)
+					"joycon": set_rotation_button(5, 90)
+			JOY_XBOX_X: # JOY_DS_Y, JOY_SONY_SQUARE
+				match gamepad_type:
+					"xb": set_game_button("X")
+					"ds": set_game_button("Y")
+					"ps": set_game_button_icon(1)
+					"joycon": set_rotation_button(5, -90)
+			JOY_XBOX_Y: # JOY_DS_X, JOY_SONY_TRIANGLE
+				match gamepad_type:
+					"xb": set_game_button("Y")
+					"ds": set_game_button("X")
+					"ps": set_game_button_icon(3)
+					"joycon": set_rotation_button(5, 0)
+			JOY_DPAD_UP:
+				if compress_dpad_and_analog_sticks: set_game_button("", 6)
+				else: set_rotation_button(7, 0)
+			JOY_DPAD_RIGHT: 
+				if compress_dpad_and_analog_sticks: set_game_button("", 6)
+				else: set_rotation_button(7, 90)
+			JOY_DPAD_DOWN: 
+				if compress_dpad_and_analog_sticks: set_game_button("", 6)
+				else: set_rotation_button(7, 180)
+			JOY_DPAD_LEFT: 
+				if compress_dpad_and_analog_sticks: set_game_button("", 6)
+				else: set_rotation_button(7, -90)
+			JOY_L: 
+				match gamepad_type:
+					"ps": set_game_button("L1", 1)
+					"joycon": set_game_button("SL", 1)
+					_: set_game_button("L", 1)
+			JOY_L2:
+				match gamepad_type:
+					"xb": set_game_button("LT", 1)
+					"ps": set_game_button("L2", 1)
+					"ds", "joycon": set_game_button("ZL", 1)
+			JOY_L3: set_game_button("L3", 9)
+			JOY_R: 
+				match gamepad_type:
+					"ps": set_game_button("R1", 2)
+					"joycon": set_game_button("RL", 2)
+					_: set_game_button("R", 2)
+			JOY_R2: 
+				match gamepad_type:
+					"xb": set_game_button("RT", 2)
+					"ps": set_game_button("R2", 2)
+					"ds", "joycon": set_game_button("ZR", 2)
+			JOY_R3: set_game_button("R3", 9)
+			JOY_START:
+				match gamepad_type:
+					"ds", "joycon": set_game_button("+", 4)
+					"ps": set_game_button("Option", 4)
+					_: set_game_button("Start", 4)
+			JOY_SELECT: 
+				match gamepad_type:
+					"ds", "joycon": set_game_button("-", 4)
+					"ps": set_game_button("Share", 4)
+					_: set_game_button("Back", 4)
+	else:
+		match(i):
+			JOY_AXIS_0:
+				if compress_dpad_and_analog_sticks: set_game_button("L", 8)
+				elif axis > 0: set_game_button("L", 14)
+				else: set_game_button("L", 12)
+			JOY_AXIS_1:
+				if compress_dpad_and_analog_sticks: set_game_button("L", 8)
+				elif axis > 0: set_game_button("L", 15)
+				else: set_game_button("L", 13)
+			JOY_AXIS_2:
+				if compress_dpad_and_analog_sticks: set_game_button("R", 8)
+				elif axis > 0: set_game_button("R", 14)
+				else: set_game_button("R", 12)
+			JOY_AXIS_3:
+				if compress_dpad_and_analog_sticks: set_game_button("R", 8)
+				elif axis > 0: set_game_button("R", 15)
+				else: set_game_button("R", 13)
 
 func set_game_button(t:String, frame := 0):
 	button_text.text = t

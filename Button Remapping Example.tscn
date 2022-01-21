@@ -1,20 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/input_button/InputDisplay.gd" type="Script" id=1]
+[ext_resource path="res://addons/input_button/ActionDisplay.gd" type="Script" id=1]
+[ext_resource path="res://ChangeMappingButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://LittleGuy.gd" type="Script" id=3]
 
 [node name="Button Remapping Example" type="Node2D"]
 
-[node name="ManualDirections" type="CheckBox" parent="."]
-margin_left = 398.0
-margin_top = 7.0
-margin_right = 647.0
-margin_bottom = 56.0
-text = "Specify Directions Individually"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="GeneralDirection" type="Node2D" parent="."]
+position = Vector2( -240, -39 )
 
 [node name="Label" type="Label" parent="GeneralDirection"]
 margin_left = 335.0
@@ -26,7 +19,84 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InputDisplay" type="Node2D" parent="GeneralDirection"]
-position = Vector2( 472, 136 )
+[node name="ActionDisplay" type="Node2D" parent="GeneralDirection"]
+position = Vector2( 459, 140 )
 script = ExtResource( 1 )
-key_code = 6
+key_code = -1
+compress_dpad_and_analog_sticks = true
+axis = -1
+action = "ui_up"
+pressable = false
+prefer_axis = false
+
+[node name="ChangeMappingButton" parent="GeneralDirection" instance=ExtResource( 2 )]
+margin_left = 534.0
+margin_top = 121.0
+margin_right = 676.0
+margin_bottom = 158.0
+action_to_change = "ui_up"
+
+[node name="GeneralButtons" type="Node2D" parent="."]
+position = Vector2( 219, -138 )
+
+[node name="Label" type="Label" parent="GeneralButtons"]
+margin_left = 307.0
+margin_top = 232.0
+margin_right = 419.0
+margin_bottom = 246.0
+rect_pivot_offset = Vector2( -672, -27 )
+text = "Rotate Clockwise:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Action" type="Node2D" parent="GeneralButtons"]
+position = Vector2( 460, 238 )
+script = ExtResource( 1 )
+key_code = -1
+axis = -1
+prefer_axis = false
+
+[node name="ChangeMappingButton" parent="GeneralButtons" instance=ExtResource( 2 )]
+margin_left = 520.0
+margin_top = 220.0
+margin_right = 662.0
+margin_bottom = 257.0
+
+[node name="Label2" type="Label" parent="GeneralButtons"]
+margin_left = 256.0
+margin_top = 302.0
+margin_right = 417.0
+margin_bottom = 316.0
+rect_pivot_offset = Vector2( -672, -27 )
+text = "Rotate Counterclockwise:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Action2" type="Node2D" parent="GeneralButtons"]
+position = Vector2( 462, 308 )
+script = ExtResource( 1 )
+key_code = -1
+axis = -1
+action = "ui_cancel"
+prefer_axis = false
+
+[node name="ChangeMappingButton2" parent="GeneralButtons" instance=ExtResource( 2 )]
+margin_left = 522.0
+margin_top = 290.0
+margin_right = 664.0
+margin_bottom = 327.0
+action_to_change = "ui_cancel"
+
+[node name="Little Guy" type="ColorRect" parent="."]
+margin_left = 511.0
+margin_top = 388.0
+margin_right = 553.0
+margin_bottom = 457.0
+rect_pivot_offset = Vector2( 21, 34.5 )
+color = Color( 0.878431, 0.592157, 0.592157, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

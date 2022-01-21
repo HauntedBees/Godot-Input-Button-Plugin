@@ -66,7 +66,8 @@ texture = ExtResource( 3 )
 [node name="A Button" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 770, 319 )
 script = ExtResource( 2 )
-key_code = 0
+key_code = -1
+axis = -1
 
 [node name="Left Bumper" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 448, 214 )
@@ -74,14 +75,25 @@ script = ExtResource( 2 )
 key_code = 0
 action = "lt1"
 
-[node name="DPad Up" type="Node2D" parent="ActionDisplay"]
-position = Vector2( 545, 390 )
-script = ExtResource( 2 )
-key_code = 0
-action = "ui_up"
-
 [node name="R3" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 694, 386 )
 script = ExtResource( 2 )
 key_code = 0
 action = "rt3"
+
+[node name="DPad Up" type="Node2D" parent="ActionDisplay"]
+position = Vector2( 545, 390 )
+script = ExtResource( 2 )
+key_code = -1
+axis = -1
+action = "ui_up"
+prefer_axis = false
+
+[node name="Just DPad" type="Node2D" parent="ActionDisplay"]
+position = Vector2( 446, 410 )
+script = ExtResource( 2 )
+key_code = -1
+compress_dpad_and_analog_sticks = true
+axis = -1
+action = "ui_up"
+prefer_axis = false
