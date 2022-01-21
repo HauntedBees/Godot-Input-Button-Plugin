@@ -1,4 +1,5 @@
 extends Button
+signal changed(action, event)
 
 export(String) var action_to_change:String = "ui_accept"
 
@@ -31,3 +32,4 @@ func _input(event:InputEvent):
 	$PopupDialog.visible = false
 	release_focus()
 	get_tree().call_group("action_display_%s" % action_to_change, "set_action", action_to_change)
+	emit_signal("changed", action_to_change, event)
