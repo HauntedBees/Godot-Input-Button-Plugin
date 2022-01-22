@@ -72,13 +72,15 @@ axis = -1
 [node name="Left Bumper" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 448, 214 )
 script = ExtResource( 2 )
-key_code = 0
+key_code = -1
+axis = -1
 action = "lt1"
 
 [node name="R3" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 694, 386 )
 script = ExtResource( 2 )
-key_code = 0
+key_code = -1
+axis = -1
 action = "rt3"
 
 [node name="DPad Up" type="Node2D" parent="ActionDisplay"]

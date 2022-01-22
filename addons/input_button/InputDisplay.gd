@@ -225,6 +225,16 @@ func set_gamepad(i:int):
 				if compress_dpad_and_analog_sticks: set_game_button("R", 8)
 				elif axis > 0: set_game_button("R", 15)
 				else: set_game_button("R", 13)
+			JOY_L2:
+				match gamepad_type:
+					"xb": set_game_button("LT", 1)
+					"ps": set_game_button("L2", 1)
+					"ds", "joycon": set_game_button("ZL", 1)
+			JOY_R2: 
+				match gamepad_type:
+					"xb": set_game_button("RT", 2)
+					"ps": set_game_button("R2", 2)
+					"ds", "joycon": set_game_button("ZR", 2)
 
 func set_game_button(t:String, frame := 0):
 	button_text.text = t
