@@ -1,6 +1,9 @@
 # Godot v3.4 Input Button Plugin
 Buttons with icons indicating the relevant key or gamepad button.
 
+# Installation
+Copy `addons/input_button` into your project (final path should be `res://addons/input_button`). In the Godot Editor, go to **Project Settings > Plugins** and enable the **Input Button Plugin**. You can now add **InputDisplay** and **ActionDisplay** nodes to your project.
+
 # InputDisplay
 This node will display a specified user input, such as a keypress, a gamepad button (XBox, Sony, and Nintendo styles), or a direction on an analog stick or d-pad. Unless you really want to show a very specific symbol devoid of context or meaning, you should just use the **ActionInput** node (described below) instead.
 
