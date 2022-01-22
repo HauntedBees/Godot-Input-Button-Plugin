@@ -1,6 +1,9 @@
 tool
 class_name InputDisplay
 extends Node2D
+
+const TEXT_OFFSET := Vector2(-30, -10)
+
 export(Color) var pressed_tint:Color = Color(0.2, 0.2, 0.2)
 export(SpriteFrames) var sheet:SpriteFrames = preload("res://addons/input_button/InputDisplaySpriteFrames.tres") setget set_sheet
 export(SpriteFrames) var overlay:SpriteFrames = preload("res://addons/input_button/InputDisplayOverlayFrames.tres") setget set_overlay_sheet
@@ -10,6 +13,58 @@ export(int) var key_code := 65 setget set_key_code
 export(bool) var pressed := false setget set_pressed
 export(bool) var compress_dpad_and_analog_sticks := false setget set_compress
 export(int) var axis := 0 setget set_axis # 0 = not an axis, 1 = positive, -1 = negative
+export(Color) var font_color:Color = Color(1, 1, 1) setget set_font_color
+func set_font_color(c:Color):
+	font_color = c
+	if button_text != null: button_text.modulate = c
+export(Vector2) var face_button_offset := Vector2(0, 0) setget set_face_button_offset
+func set_face_button_offset(d:Vector2):
+	face_button_offset = d
+	refresh_display()
+export(Vector2) var left_shoulder_button_offset := Vector2(0, 0) setget set_left_shoulder_button_offset
+func set_left_shoulder_button_offset(d:Vector2):
+	left_shoulder_button_offset = d
+	refresh_display()
+export(Vector2) var right_shoulder_button_offset := Vector2(0, 0) setget set_right_shoulder_button_offset
+func set_right_shoulder_button_offset(d:Vector2):
+	right_shoulder_button_offset = d
+	refresh_display()
+export(Vector2) var key_offset := Vector2(0, 0) setget set_key_offset
+func set_key_offset(d:Vector2):
+	key_offset = d
+	refresh_display()
+export(Vector2) var long_key_offset := Vector2(0, 0) setget set_long_key_offset
+func set_long_key_offset(d:Vector2):
+	long_key_offset = d
+	refresh_display()
+export(float) var long_key_text_scale := 0.5 setget set_long_key_text_scale
+func set_long_key_text_scale(f:float):
+	long_key_text_scale = f
+	refresh_display()
+export(Vector2) var analog_stick_offset := Vector2(0, 0) setget set_analog_stick_offset
+func set_analog_stick_offset(d:Vector2):
+	analog_stick_offset = d
+	refresh_display()
+export(Vector2) var pressed_analog_stick_offset := Vector2(0, 0) setget set_pressed_analog_stick_offset
+func set_pressed_analog_stick_offset(d:Vector2):
+	pressed_analog_stick_offset = d
+	refresh_display()
+export(Vector2) var left_analog_stick_offset := Vector2(0, 0) setget set_left_analog_stick_offset
+func set_left_analog_stick_offset(d:Vector2):
+	left_analog_stick_offset = d
+	refresh_display()
+export(Vector2) var up_analog_stick_offset := Vector2(0, 0) setget set_up_analog_stick_offset
+func set_up_analog_stick_offset(d:Vector2):
+	up_analog_stick_offset = d
+	refresh_display()
+export(Vector2) var right_analog_stick_offset := Vector2(0, 0) setget set_right_analog_stick_offset
+func set_right_analog_stick_offset(d:Vector2):
+	right_analog_stick_offset = d
+	refresh_display()
+export(Vector2) var down_analog_stick_offset := Vector2(0, 0) setget set_down_analog_stick_offset
+func set_down_analog_stick_offset(d:Vector2):
+	down_analog_stick_offset = d
+	refresh_display()
 
 var button_icon:AnimatedSprite
 var button_text:Label
@@ -24,12 +79,13 @@ func _ready():
 	add_child(button_icon)
 	
 	button_text = Label.new()
+	button_text.modulate = font_color
 	button_text.align = Label.ALIGN_CENTER
 	button_text.valign = Label.VALIGN_CENTER
 	button_text.clip_text = true
-	button_text.rect_size = Vector2(48, 16)
-	button_text.rect_position = Vector2(-24, -8)
-	button_text.rect_pivot_offset = Vector2(24, 8)
+	button_text.rect_size = Vector2(60, 20)
+	button_text.rect_position = TEXT_OFFSET
+	button_text.rect_pivot_offset = Vector2(30, 10)
 	button_text.add_font_override("font", font)
 	add_child(button_text)
 	
@@ -117,6 +173,7 @@ func refresh_display():
 func set_key(t:String):
 	button_text.text = t
 	button_text.rect_scale = Vector2(1, 1)
+	button_text.rect_position = TEXT_OFFSET + key_offset
 	button_icon.frame = 3
 	button_icon.rotation = 0
 	overlay_icon.visible = false
@@ -128,10 +185,12 @@ func set_icon_key(icon_frame:int, rotation:float):
 	overlay_icon.visible = true
 	overlay_icon.frame = icon_frame
 	overlay_icon.rotation_degrees = rotation
+	overlay_icon.position = key_offset
 
 func set_big_key(t:String):
 	button_text.text = t
-	button_text.rect_scale = Vector2(0.75, 0.75)
+	button_text.rect_scale = Vector2(long_key_text_scale, long_key_text_scale)
+	button_text.rect_position = TEXT_OFFSET + long_key_offset
 	button_icon.frame = 4
 	button_icon.rotation = 0
 	overlay_icon.visible = false
@@ -238,14 +297,26 @@ func set_gamepad(i:int):
 
 func set_game_button(t:String, frame := 0):
 	button_text.text = t
-	button_text.rect_scale = Vector2(1, 1)
+	button_text.rect_scale = Vector2(long_key_text_scale, long_key_text_scale) if frame == 4 else Vector2(1, 1)
 	button_icon.frame = frame
 	button_icon.rotation = 0
 	overlay_icon.visible = false
+	match frame:
+		0: button_text.rect_position = TEXT_OFFSET + face_button_offset
+		1: button_text.rect_position = TEXT_OFFSET + left_shoulder_button_offset
+		2: button_text.rect_position = TEXT_OFFSET + right_shoulder_button_offset
+		4: button_text.rect_position = TEXT_OFFSET + long_key_offset
+		8: button_text.rect_position = TEXT_OFFSET + analog_stick_offset
+		9: button_text.rect_position = TEXT_OFFSET + pressed_analog_stick_offset
+		12: button_text.rect_position = TEXT_OFFSET + left_analog_stick_offset
+		13: button_text.rect_position = TEXT_OFFSET + up_analog_stick_offset
+		14: button_text.rect_position = TEXT_OFFSET + right_analog_stick_offset
+		15: button_text.rect_position = TEXT_OFFSET + down_analog_stick_offset
 func set_game_button_icon(icon_frame:int, rotation := 0.0):
 	button_text.text = ""
 	button_icon.frame = 0
 	button_icon.rotation = 0
+	overlay_icon.position = face_button_offset
 	overlay_icon.visible = true
 	overlay_icon.frame = icon_frame
 	overlay_icon.rotation_degrees = rotation

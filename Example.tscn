@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/input_button/InputDisplay.gd" type="Script" id=1]
 [ext_resource path="res://addons/input_button/ActionDisplay.gd" type="Script" id=2]
 [ext_resource path="res://controller.png" type="Texture" id=3]
+[ext_resource path="res://custom_icons.tres" type="SpriteFrames" id=4]
+[ext_resource path="res://custom_buttons.tres" type="SpriteFrames" id=5]
+[ext_resource path="res://custom_font.tres" type="DynamicFont" id=6]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( -73, -63 )
@@ -11,19 +14,27 @@ position = Vector2( -73, -63 )
 position = Vector2( 29, 30 )
 
 [node name="InputDisplay Label" type="Label" parent="InputDisplay"]
-margin_left = 87.0
-margin_top = 61.0
-margin_right = 309.0
-margin_bottom = 75.0
-text = "InputDisplay Hard-coded Bindings:"
+margin_left = 81.0
+margin_top = 55.0
+margin_right = 303.0
+margin_bottom = 69.0
+text = "InputDisplay Hard-coded Bindings:
+(You can mess with these in the
+Godot Editor to see things take
+effect right away)"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="XBox Right Trigger" type="Node2D" parent="InputDisplay"]
-position = Vector2( 359, 72 )
+position = Vector2( 348, 71 )
 script = ExtResource( 1 )
+sheet = ExtResource( 5 )
+overlay = ExtResource( 4 )
+font = ExtResource( 6 )
 key_code = 7
+font_color = Color( 0.682353, 0, 0, 1 )
 
 [node name="Keyboard E" type="Node2D" parent="InputDisplay"]
 position = Vector2( 429, 72 )
@@ -41,6 +52,12 @@ position = Vector2( 559, 70 )
 script = ExtResource( 1 )
 gamepad_type = "joycon"
 key_code = 2
+
+[node name="Keyboard Enter" type="Node2D" parent="InputDisplay"]
+position = Vector2( 630, 71 )
+script = ExtResource( 1 )
+key_code = 16777221
+long_key_text_scale = 0.6
 
 [node name="ActionDisplay" type="Node2D" parent="."]
 
@@ -79,8 +96,13 @@ action = "lt1"
 [node name="R3" type="Node2D" parent="ActionDisplay"]
 position = Vector2( 694, 386 )
 script = ExtResource( 2 )
+sheet = ExtResource( 5 )
+overlay = ExtResource( 4 )
+font = ExtResource( 6 )
 key_code = -1
 axis = -1
+font_color = Color( 0, 0, 0, 1 )
+left_analog_stick_offset = Vector2( -5, -5 )
 action = "rt3"
 
 [node name="DPad Up" type="Node2D" parent="ActionDisplay"]
