@@ -1,5 +1,8 @@
 # Godot v3.4 Input Button Plugin
-Buttons with icons indicating the relevant key or gamepad button.
+Buttons with icons indicating the relevant key or gamepad button. Includes three Nodes:
+ - **InputDisplay**: For displaying a specific button or key.
+ - **ActionDisplay**: For displaying a specific **InputMap action** and updating based on the current control method (keyboard/gamepad) and whether or not the action is being pressed.
+ - **ActionButton**: A button with an **ActionDisplay** icon, that can be triggered both on click/touch events like a regular button or by pressing the specified **InputMap action**.
 
 # Installation
 Copy `addons/input_button` into your project (final path should be `res://addons/input_button`). In the Godot Editor, go to **Project Settings > Plugins** and enable the **Input Button Plugin**. You can now add **InputDisplay** and **ActionDisplay** nodes to your project.
@@ -98,6 +101,20 @@ If you wish to update the action of this Node in code, you can just call `$Actio
 ## Godot Editor Note
 While the **InputDisplay** will always update automatically in the Godot Editor, the **ActionDisplay** will not update based on the **action** value due to the behavior of the **Input Map** settings in Godot. To my knowledge, there is no fix for this in Godot 3.4. If you wish to see how the Node looks in the Editor, you can set the **gamepad_type**, **key_code** and **axis** manually in the **Inspector panel** to preview the styles. However, they will be immediately overwritten based on the **action** value at runtime. 
 
+# ActionButton
+A **Button** with a dynamically updating **ActionDisplay** as its icon. **button_down**, **button_up**, and **pressed** signals are emitted as they would be for a normal button, but will also be emitted when the user presses/releases the relevant action.
+
+## Export Variables
+
+### custom_display_action
+By default, this uses an **ActionDisplay** with its default styles applied as its icon. If you want to change things (like the **sheet** and **font**), just make a new scene with just your customized **ActionDisplay** in it, save that scene, and select it here.
+
+## action
+The **InputMap action** you want to tie to this button. Passes the value down to the **action** variable of the **ActionDisplay**.
+
+## icon_size
+If you're using a **custom_display_action** and your icons aren't 64x64, resize them here.
+
 # Example Project
 
 ## Example.tscn
@@ -105,6 +122,9 @@ Just shows off a the nodes a bit. Nothing really special here. Main thing of not
 
 ## Button Remapping Example.tscn
 A scene with a rectangle you can move and rotate, with the ability to remap the controls. When **Manually configure Movement Directions** is unchecked (as it is by default), the remap will try automatically updating all four directions based on your input. If you press something on your gamepad's directional pad, it'll automatically map up to directional pad up, down to directional pad down, left to directional pad left, and right to directional pad right. This will also work with the left and right analog sticks on a gamepad. When this is checked, you can manually specify unique inputs for each of the four directions.
+
+## ActionButtonTest.tscn
+Showing off the **ActionButton** Node. Two buttons that can be activated by clicking or pressing the relevant key/button.
 
 # License
 

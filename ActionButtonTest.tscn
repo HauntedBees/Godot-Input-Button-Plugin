@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://CustomActionDisplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ActionButtonTest.gd" type="Script" id=2]
+[ext_resource path="res://addons/input_button/ActionButton.gd" type="Script" id=3]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ActionButton" type="Button" parent="."]
+margin_left = 398.0
+margin_top = 265.0
+margin_right = 667.0
+margin_bottom = 314.0
+text = "Down Button (Custom Icon)"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+custom_action_display = ExtResource( 1 )
+action = "ui_down"
+icon_size = Vector2( 96, 96 )
+
+[node name="ActionButton2" type="Button" parent="."]
+margin_left = 458.0
+margin_top = 194.0
+margin_right = 602.0
+margin_bottom = 248.0
+text = "Confirm Button"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 5.0
+margin_right = 1026.0
+margin_bottom = 55.0
+text = "Click one of the buttons or press the appropriate key/button to trigger the action!"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 466.0
+margin_top = 81.0
+margin_right = 597.0
+margin_bottom = 162.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_down" from="ActionButton" to="." method="_on_ActionButton_button_down"]
+[connection signal="button_up" from="ActionButton" to="." method="_on_ActionButton_button_up"]
+[connection signal="pressed" from="ActionButton" to="." method="_on_ActionButton_pressed"]
+[connection signal="button_down" from="ActionButton2" to="." method="_on_ActionButton2_button_down"]
+[connection signal="button_up" from="ActionButton2" to="." method="_on_ActionButton2_button_up"]

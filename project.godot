@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Button",
+"class": "ActionButton",
+"language": "GDScript",
+"path": "res://addons/input_button/ActionButton.gd"
+}, {
 "base": "InputDisplay",
 "class": "ActionDisplay",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://addons/input_button/InputDisplay.gd"
 } ]
 _global_script_class_icons={
+"ActionButton": "",
 "ActionDisplay": "",
 "InputDisplay": ""
 }
