@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/input_button/ActionDisplay.gd" type="Script" id=1]
 [ext_resource path="res://ChangeMappingButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://LittleGuy.gd" type="Script" id=3]
 [ext_resource path="res://Button Remapping Example.gd" type="Script" id=4]
+[ext_resource path="res://addons/input_button/ButtonFont.tres" type="DynamicFont" id=5]
 
 [node name="Button Remapping Example" type="Node2D"]
 script = ExtResource( 4 )
@@ -24,9 +25,27 @@ __meta__ = {
 [node name="ActionDisplay" type="Node2D" parent="GeneralDirection"]
 position = Vector2( 459, 140 )
 script = ExtResource( 1 )
+use_press_sprites = true
+use_font_shadow = false
+font_shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+gamepad_type = "ps"
 key_code = -1
 compress_dpad_and_analog_sticks = true
-axis = -1
+face_button_offset = Vector2( 0, 0 )
+pressed_face_button_offset = Vector2( 0, 0.2 )
+left_shoulder_button_offset = Vector2( 0, 0 )
+pressed_left_shoulder_button_offset = Vector2( 0, 0.2 )
+right_shoulder_button_offset = Vector2( 0, 0 )
+pressed_right_shoulder_button_offset = Vector2( 0, 0.2 )
+key_offset = Vector2( 0, 0 )
+pressed_key_offset = Vector2( 0, 0.2 )
+long_key_offset = Vector2( 0, 0 )
+pressed_long_key_offset = Vector2( 0, 0.2 )
+pressed_analog_stick_offset = Vector2( 0, 0 )
+left_analog_stick_offset = Vector2( 0, 0 )
+up_analog_stick_offset = Vector2( 0, 0 )
+right_analog_stick_offset = Vector2( 0, 0 )
+down_analog_stick_offset = Vector2( 0, 0 )
 action = "ui_up"
 pressable = false
 prefer_axis = false
@@ -57,8 +76,25 @@ __meta__ = {
 [node name="Up2" type="Node2D" parent="ManualDirection"]
 position = Vector2( 459, 140 )
 script = ExtResource( 1 )
+use_font_shadow = false
+font_shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+gamepad_type = "ps"
 key_code = -1
-axis = -1
+face_button_offset = Vector2( 0, 0 )
+pressed_face_button_offset = Vector2( 0, 0.2 )
+left_shoulder_button_offset = Vector2( 0, 0 )
+pressed_left_shoulder_button_offset = Vector2( 0, 0.2 )
+right_shoulder_button_offset = Vector2( 0, 0 )
+pressed_right_shoulder_button_offset = Vector2( 0, 0.2 )
+key_offset = Vector2( 0, 0 )
+pressed_key_offset = Vector2( 0, 0.2 )
+long_key_offset = Vector2( 0, 0 )
+pressed_long_key_offset = Vector2( 0, 0.2 )
+pressed_analog_stick_offset = Vector2( 0, 0 )
+left_analog_stick_offset = Vector2( 0, 0 )
+up_analog_stick_offset = Vector2( 0, 0 )
+right_analog_stick_offset = Vector2( 0, 0 )
+down_analog_stick_offset = Vector2( 0, 0 )
 action = "ui_up"
 prefer_axis = false
 
@@ -85,8 +121,25 @@ __meta__ = {
 [node name="Up5" type="Node2D" parent="ManualDirection"]
 position = Vector2( 459, 196 )
 script = ExtResource( 1 )
+use_font_shadow = false
+font_shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+gamepad_type = "ps"
 key_code = -1
-axis = -1
+face_button_offset = Vector2( 0, 0 )
+pressed_face_button_offset = Vector2( 0, 0.2 )
+left_shoulder_button_offset = Vector2( 0, 0 )
+pressed_left_shoulder_button_offset = Vector2( 0, 0.2 )
+right_shoulder_button_offset = Vector2( 0, 0 )
+pressed_right_shoulder_button_offset = Vector2( 0, 0.2 )
+key_offset = Vector2( 0, 0 )
+pressed_key_offset = Vector2( 0, 0.2 )
+long_key_offset = Vector2( 0, 0 )
+pressed_long_key_offset = Vector2( 0, 0.2 )
+pressed_analog_stick_offset = Vector2( 0, 0 )
+left_analog_stick_offset = Vector2( 0, 0 )
+up_analog_stick_offset = Vector2( 0, 0 )
+right_analog_stick_offset = Vector2( 0, 0 )
+down_analog_stick_offset = Vector2( 0, 0 )
 action = "ui_left"
 prefer_axis = false
 
@@ -113,8 +166,25 @@ __meta__ = {
 [node name="Up8" type="Node2D" parent="ManualDirection"]
 position = Vector2( 460, 248 )
 script = ExtResource( 1 )
+use_font_shadow = false
+font_shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+gamepad_type = "ps"
 key_code = -1
-axis = -1
+face_button_offset = Vector2( 0, 0 )
+pressed_face_button_offset = Vector2( 0, 0.2 )
+left_shoulder_button_offset = Vector2( 0, 0 )
+pressed_left_shoulder_button_offset = Vector2( 0, 0.2 )
+right_shoulder_button_offset = Vector2( 0, 0 )
+pressed_right_shoulder_button_offset = Vector2( 0, 0.2 )
+key_offset = Vector2( 0, 0 )
+pressed_key_offset = Vector2( 0, 0.2 )
+long_key_offset = Vector2( 0, 0 )
+pressed_long_key_offset = Vector2( 0, 0.2 )
+pressed_analog_stick_offset = Vector2( 0, 0 )
+left_analog_stick_offset = Vector2( 0, 0 )
+up_analog_stick_offset = Vector2( 0, 0 )
+right_analog_stick_offset = Vector2( 0, 0 )
+down_analog_stick_offset = Vector2( 0, 0 )
 action = "ui_down"
 prefer_axis = false
 
@@ -141,8 +211,25 @@ __meta__ = {
 [node name="Up11" type="Node2D" parent="ManualDirection"]
 position = Vector2( 459, 299 )
 script = ExtResource( 1 )
+use_font_shadow = false
+font_shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+gamepad_type = "ps"
 key_code = -1
-axis = -1
+face_button_offset = Vector2( 0, 0 )
+pressed_face_button_offset = Vector2( 0, 0.2 )
+left_shoulder_button_offset = Vector2( 0, 0 )
+pressed_left_shoulder_button_offset = Vector2( 0, 0.2 )
+right_shoulder_button_offset = Vector2( 0, 0 )
+pressed_right_shoulder_button_offset = Vector2( 0, 0.2 )
+key_offset = Vector2( 0, 0 )
+pressed_key_offset = Vector2( 0, 0.2 )
+long_key_offset = Vector2( 0, 0 )
+pressed_long_key_offset = Vector2( 0, 0.2 )
+pressed_analog_stick_offset = Vector2( 0, 0 )
+left_analog_stick_offset = Vector2( 0, 0 )
+up_analog_stick_offset = Vector2( 0, 0 )
+right_analog_stick_offset = Vector2( 0, 0 )
+down_analog_stick_offset = Vector2( 0, 0 )
 action = "ui_right"
 prefer_axis = false
 
@@ -171,8 +258,9 @@ __meta__ = {
 [node name="Action" type="Node2D" parent="GeneralButtons"]
 position = Vector2( 460, 238 )
 script = ExtResource( 1 )
+use_press_sprites = true
+gamepad_type = "ps"
 key_code = -1
-axis = -1
 prefer_axis = false
 
 [node name="ChangeMappingButton" parent="GeneralButtons" instance=ExtResource( 2 )]
@@ -180,6 +268,7 @@ margin_left = 520.0
 margin_top = 220.0
 margin_right = 662.0
 margin_bottom = 257.0
+custom_fonts/font = ExtResource( 5 )
 
 [node name="Label2" type="Label" parent="GeneralButtons"]
 margin_left = 256.0
@@ -195,8 +284,9 @@ __meta__ = {
 [node name="Action2" type="Node2D" parent="GeneralButtons"]
 position = Vector2( 462, 308 )
 script = ExtResource( 1 )
+use_press_sprites = true
+gamepad_type = "ps"
 key_code = -1
-axis = -1
 action = "ui_cancel"
 prefer_axis = false
 

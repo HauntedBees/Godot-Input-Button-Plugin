@@ -129,3 +129,5 @@ Showing off the **ActionButton** Node. Two buttons that can be activated by clic
 # License
 
 Copyleft, but, like, whatever. If you've read this far and you're some new indie gamedev or something who really thinks this code will help you but for some reason you're very determined not to open source your game for whatever reason, I think that's weird but realistically don't care. If your game or project makes less than $1,000 or something, you can interpret this as me granting you a license to use this code in your proprietary game (with credit). If your project makes more than that, either release its source under a license compatible with the AGPLv3, take my code out of your project, or send me ten bucks.
+
+The [Johuria Font](https://fontlibrary.org/en/font/galaxyfontjohuria) referenced in [res://addons/input_button/Jomhuria-Regular.ttf](https://github.com/HauntedBees/Godot-Input-Button-Plugin/blob/main/addons/input_button/Jomhuria-Regular.ttf) is licensed under the [SIL Open Font License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).

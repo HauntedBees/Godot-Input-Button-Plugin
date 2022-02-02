@@ -24,10 +24,11 @@ func _input(event):
 
 func set_action(a:String):
 	if is_in_group("action_display_%s" % action): remove_from_group("action_display_%s" % action)
+	set_pressed(false)
 	action = a
 	add_to_group("action_display_%s" % action)
-	if !rendered(): return
-	var actions = InputMap.get_action_list(action) # sometimes doesn't work in editor?
+	if !rendered() || Engine.editor_hint: return
+	var actions = InputMap.get_action_list(action) # doesn't work in editor?
 	if actions.size() == 0: return
 	keypad_code = -1
 	gamepad_code = -1
